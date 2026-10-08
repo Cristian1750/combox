@@ -1,62 +1,36 @@
+
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Combox | Sign Up</title>
-
-    <link rel="icon" type="image/png" href="icons/main_logo.png">
-
-    <style>
-
-        body {
-            background-color: #FFEB10;
-            text-align: center;
-        }
-
-        input {
-            display: block;
-            margin: 5px auto 10px auto;
-        }
-
-        button {
-            display: block;
-            margin: 10px auto;
-        }
-
-    </style>
-
+    <title> Combox | Sing Up </title>
+    <link rel="icon" type="image/png" href="icons/star.png"> <!--logo de la ventana -->
 </head>
-
 <body>
-
-    <h3>Register New Combox User</h3>
-
-    <label>First Name:</label>
-    <input type="text">
-
-    <label>Last Name:</label>
-    <input type="text">
-
-    <label>Mobile number:</label>
-    <input type="text">
-
-    <label>Email:</label>
-    <input type="email">
-
-    <label>Password:</label>
-    <input type="password">
-
-    <button>Register</button>
-
+    <form name="register-form" action="signup.php" method="post">
+        <style>
+            body {
+                text-align: center;
+                background-color: #fad503;
+            }
+        </style>
+        <!-- Crear registro con titulo campos agregar textos y boton -->
+        <br><h3>  Register new Combox user </h3>
+        <br><label>Firstname:</label><br>
+        <input type="text" name="fname" required><br>
+        <br><label>Lastname:</label><br>
+        <input type="text" name="lname" required><br>
+        <br><label>Mobil Number:</label><br>
+        <input type="text" name="mphone" required><br>   
+        <br><label>Email:</label><br>
+        <input type="text" name="email" required><br>  
+        <br><label>Password:</label><br>
+        <input type="text" name="pswd" required> <br> 
+        <br><button> Register </button><br> 
+        <br><label>I already have an account</label>
+        <a href="signin.html" target="_blank">Sing in</a>
+    </form>
 </body>
-
+</body>
 </html>
-<a href="signin.html" class="cuenta">
-    I already have an account
-</a>
