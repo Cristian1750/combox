@@ -24,6 +24,7 @@ if (!$res) {
     die("Error en la consulta: " . pg_last_error($supa_conn));
 }
 ?>
+/fast
 
 <!DOCTYPE html>
 <html lang="es">
