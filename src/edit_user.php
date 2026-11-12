@@ -36,8 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
             $mensaje = "Error al cargar la fotografía.";
+
         } elseif ($_FILES['photo']['size'] > 5 * 1024 * 1024) {
             $mensaje = "La foto supera los 5 MB.";
+
         } else {
 
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -53,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (!isset($extensiones[$mime])) {
                 $mensaje = "Formato de imagen no permitido.";
+
             } else {
 
                 $carpeta = __DIR__ . '/photos/';
@@ -69,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $carpeta . $nombreFoto
                 )) {
                     $photo_url = 'photos/' . $nombreFoto;
+
                 } else {
                     $mensaje = "No se pudo guardar la fotografía.";
                 }
@@ -80,8 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($firstname == '' || $lastname == '' || $email == '') {
             $mensaje = "Completa los campos obligatorios.";
+
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $mensaje = "Correo electrónico inválido.";
+
         } else {
 
             $update = "UPDATE users SET
@@ -106,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($result) {
                 header("Location: list_users.php");
                 exit;
+
             } else {
                 $mensaje = "Error al actualizar: " .
                            pg_last_error($supa_conn);
@@ -159,9 +166,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <th>Edit Data</th>
             </tr>
 
+            <!-- ID -->
+            <tr>
+                <td>ID</td>
+                <td>
+                    <?php echo htmlspecialchars($user['id']); ?>
+                </td>
+                <td>
+                    <input type="text"
+                           value="<?php echo htmlspecialchars($user['id']); ?>"
+                           readonly>
+                </td>
+            </tr>
+
+            <!-- Firstname -->
             <tr>
                 <td>Firstname</td>
-                <td><?php echo htmlspecialchars($user['firstname']); ?></td>
+                <td>
+                    <?php echo htmlspecialchars($user['firstname']); ?>
+                </td>
                 <td>
                     <input type="text" name="firstname"
                     value="<?php echo htmlspecialchars($user['firstname']); ?>"
@@ -169,9 +192,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </td>
             </tr>
 
+            <!-- Lastname -->
             <tr>
                 <td>Lastname</td>
-                <td><?php echo htmlspecialchars($user['lastname']); ?></td>
+                <td>
+                    <?php echo htmlspecialchars($user['lastname']); ?>
+                </td>
                 <td>
                     <input type="text" name="lastname"
                     value="<?php echo htmlspecialchars($user['lastname']); ?>"
@@ -179,18 +205,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </td>
             </tr>
 
+            <!-- Mobile Phone -->
             <tr>
                 <td>Mobile Phone</td>
-                <td><?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?></td>
+                <td>
+                    <?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?>
+                </td>
                 <td>
                     <input type="text" name="mobile_phone"
                     value="<?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?>">
                 </td>
             </tr>
 
+            <!-- Email -->
             <tr>
                 <td>Email</td>
-                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td>
+                    <?php echo htmlspecialchars($user['email']); ?>
+                </td>
                 <td>
                     <input type="email" name="email"
                     value="<?php echo htmlspecialchars($user['email']); ?>"
@@ -198,6 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </td>
             </tr>
 
+            <!-- Status -->
             <tr>
                 <td>Status</td>
                 <td>
@@ -205,6 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </td>
                 <td>
                     <select name="status">
+
                         <option value="true"
                         <?php echo ($user['status'] === 't') ? 'selected' : ''; ?>>
                             Active
@@ -214,12 +248,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php echo ($user['status'] === 'f') ? 'selected' : ''; ?>>
                             Inactive
                         </option>
+
                     </select>
                 </td>
             </tr>
 
+            <!-- Photo -->
             <tr>
                 <td>Photo</td>
+
                 <td>
                     <?php
                     $foto = $user['photo_url'] ?? '';
@@ -234,12 +271,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
 
                     <img src="<?php echo htmlspecialchars($foto); ?>"
-                         width="60" height="60"
-                         style="object-fit:cover; border-radius:50%;">
+                         width="60"
+                         height="60"
+                         style="object-fit:cover; border-radius:50%;"
+                         alt="User Photo">
                 </td>
 
                 <td>
-                    <input type="file" name="photo" accept="image/*">
+                    <input type="file"
+                           name="photo"
+                           accept="image/*">
                 </td>
             </tr>
 
