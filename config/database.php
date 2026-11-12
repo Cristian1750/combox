@@ -16,7 +16,7 @@
     $supa_password = "unicesmag@@";
 
     //funcion de posrtgres para conectar con la base de datos 
-    $localconn =pg_connect("
+    $localconn = pg_connect("
         host=$local_host 
         port=$local_port 
         dbname=$local_dbname 
@@ -25,7 +25,7 @@
     ");
 
     //funcion de posrtgres para conectar con la base de datos
-     $supa_conn =pg_connect("
+     $supa_conn = pg_connect("
         host=$supa_host
         port=$supa_port
         dbname=$supa_dbname 
