@@ -136,7 +136,106 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Edit User Combox</title>
+
+    <link rel="icon" type="image/png" href="icons/my logo 0.1.png">
+
+    <!-- Estilos de la tabla -->
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .table {
+            width: 75%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            text-align: center;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            font-weight: bold;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Temas de tabla */
+        .theme-primary th {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .theme-accent th {
+            background-color: #6610f2;
+            color: white;
+        }
+
+        .theme-success th {
+            background-color: #198754;
+            color: white;
+        }
+
+        .theme-danger th {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .theme-warning th {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .theme-info th {
+            background-color: #0dcaf0;
+            color: #212529;
+        }
+
+        .theme-inverse th {
+            background-color: #212529;
+            color: white;
+        }
+
+        .theme-secondary th {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* Botones */
+        button {
+            padding: 6px 10px;
+            margin: 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -158,131 +257,137 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="id"
                value="<?php echo htmlspecialchars($user['id']); ?>">
 
-        <table border="1" cellpadding="10">
+        <table class="table theme-primary">
 
-            <tr>
-                <th>Field</th>
-                <th>Current Data</th>
-                <th>Edit Data</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Current Data</th>
+                    <th>Edit Data</th>
+                </tr>
+            </thead>
 
-            <!-- ID -->
-            <tr>
-                <td>ID</td>
-                <td>
-                    <?php echo htmlspecialchars($user['id']); ?>
-                </td>
-                <td>
-                    <input type="text"
-                           value="<?php echo htmlspecialchars($user['id']); ?>"
-                           readonly>
-                </td>
-            </tr>
+            <tbody>
 
-            <!-- Firstname -->
-            <tr>
-                <td>Firstname</td>
-                <td>
-                    <?php echo htmlspecialchars($user['firstname']); ?>
-                </td>
-                <td>
-                    <input type="text" name="firstname"
-                    value="<?php echo htmlspecialchars($user['firstname']); ?>"
-                    required>
-                </td>
-            </tr>
+                <!-- ID -->
+                <tr>
+                    <td>ID</td>
+                    <td>
+                        <?php echo htmlspecialchars($user['id']); ?>
+                    </td>
+                    <td>
+                        <input type="text"
+                               value="<?php echo htmlspecialchars($user['id']); ?>"
+                               readonly>
+                    </td>
+                </tr>
 
-            <!-- Lastname -->
-            <tr>
-                <td>Lastname</td>
-                <td>
-                    <?php echo htmlspecialchars($user['lastname']); ?>
-                </td>
-                <td>
-                    <input type="text" name="lastname"
-                    value="<?php echo htmlspecialchars($user['lastname']); ?>"
-                    required>
-                </td>
-            </tr>
+                <!-- Firstname -->
+                <tr>
+                    <td>Firstname</td>
+                    <td>
+                        <?php echo htmlspecialchars($user['firstname']); ?>
+                    </td>
+                    <td>
+                        <input type="text" name="firstname"
+                        value="<?php echo htmlspecialchars($user['firstname']); ?>"
+                        required>
+                    </td>
+                </tr>
 
-            <!-- Mobile Phone -->
-            <tr>
-                <td>Mobile Phone</td>
-                <td>
-                    <?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?>
-                </td>
-                <td>
-                    <input type="text" name="mobile_phone"
-                    value="<?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?>">
-                </td>
-            </tr>
+                <!-- Lastname -->
+                <tr>
+                    <td>Lastname</td>
+                    <td>
+                        <?php echo htmlspecialchars($user['lastname']); ?>
+                    </td>
+                    <td>
+                        <input type="text" name="lastname"
+                        value="<?php echo htmlspecialchars($user['lastname']); ?>"
+                        required>
+                    </td>
+                </tr>
 
-            <!-- Email -->
-            <tr>
-                <td>Email</td>
-                <td>
-                    <?php echo htmlspecialchars($user['email']); ?>
-                </td>
-                <td>
-                    <input type="email" name="email"
-                    value="<?php echo htmlspecialchars($user['email']); ?>"
-                    required>
-                </td>
-            </tr>
+                <!-- Mobile Phone -->
+                <tr>
+                    <td>Mobile Phone</td>
+                    <td>
+                        <?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?>
+                    </td>
+                    <td>
+                        <input type="text" name="mobile_phone"
+                        value="<?php echo htmlspecialchars($user['mobile_phone'] ?? ''); ?>">
+                    </td>
+                </tr>
 
-            <!-- Status -->
-            <tr>
-                <td>Status</td>
-                <td>
-                    <?php echo ($user['status'] === 't') ? 'Active' : 'Inactive'; ?>
-                </td>
-                <td>
-                    <select name="status">
+                <!-- Email -->
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <?php echo htmlspecialchars($user['email']); ?>
+                    </td>
+                    <td>
+                        <input type="email" name="email"
+                        value="<?php echo htmlspecialchars($user['email']); ?>"
+                        required>
+                    </td>
+                </tr>
 
-                        <option value="true"
-                        <?php echo ($user['status'] === 't') ? 'selected' : ''; ?>>
-                            Active
-                        </option>
+                <!-- Status -->
+                <tr>
+                    <td>Status</td>
+                    <td>
+                        <?php echo ($user['status'] === 't') ? 'Active' : 'Inactive'; ?>
+                    </td>
+                    <td>
+                        <select name="status">
 
-                        <option value="false"
-                        <?php echo ($user['status'] === 'f') ? 'selected' : ''; ?>>
-                            Inactive
-                        </option>
+                            <option value="true"
+                            <?php echo ($user['status'] === 't') ? 'selected' : ''; ?>>
+                                Active
+                            </option>
 
-                    </select>
-                </td>
-            </tr>
+                            <option value="false"
+                            <?php echo ($user['status'] === 'f') ? 'selected' : ''; ?>>
+                                Inactive
+                            </option>
 
-            <!-- Photo -->
-            <tr>
-                <td>Photo</td>
+                        </select>
+                    </td>
+                </tr>
 
-                <td>
-                    <?php
-                    $foto = $user['photo_url'] ?? '';
+                <!-- Photo -->
+                <tr>
+                    <td>Photo</td>
 
-                    if (strpos($foto, 'photo/') === 0) {
-                        $foto = 'photos/' . basename($foto);
-                    }
+                    <td>
+                        <?php
+                        $foto = $user['photo_url'] ?? '';
 
-                    if (empty($foto)) {
-                        $foto = 'photos/user_default.png';
-                    }
-                    ?>
+                        if (strpos($foto, 'photo/') === 0) {
+                            $foto = 'photos/' . basename($foto);
+                        }
 
-                    <img src="<?php echo htmlspecialchars($foto); ?>"
-                         width="60"
-                         height="60"
-                         style="object-fit:cover; border-radius:50%;"
-                         alt="User Photo">
-                </td>
+                        if (empty($foto)) {
+                            $foto = 'photos/user_default.png';
+                        }
+                        ?>
 
-                <td>
-                    <input type="file"
-                           name="photo"
-                           accept="image/*">
-                </td>
-            </tr>
+                        <img src="<?php echo htmlspecialchars($foto); ?>"
+                             width="60"
+                             height="60"
+                             style="object-fit:cover; border-radius:50%;"
+                             alt="User Photo">
+                    </td>
+
+                    <td>
+                        <input type="file"
+                               name="photo"
+                               accept="image/*">
+                    </td>
+                </tr>
+
+            </tbody>
 
         </table>
 

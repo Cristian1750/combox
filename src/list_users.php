@@ -1,4 +1,4 @@
-```php
+
 <?php
 require('../config/database.php');
 
@@ -24,7 +24,6 @@ if (!$res) {
     die("Error en la consulta: " . pg_last_error($supa_conn));
 }
 ?>
-/fast
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,112 +31,276 @@ if (!$res) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>List Users Combox</title>
+
     <link rel="icon" type="image/png" href="icons/my logo 0.1.png">
+
+    <!-- Estilos de la tabla -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        .table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            text-align: center;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            font-weight: bold;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Temas de tabla */
+        .theme-primary th {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .theme-accent th {
+            background-color: #6610f2;
+            color: white;
+        }
+
+        .theme-success th {
+            background-color: #198754;
+            color: white;
+        }
+
+        .theme-danger th {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .theme-warning th {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .theme-info th {
+            background-color: #0dcaf0;
+            color: #212529;
+        }
+
+        .theme-inverse th {
+            background-color: #212529;
+            color: white;
+        }
+
+        .theme-secondary th {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* Botones */
+        button {
+            padding: 6px 10px;
+            margin: 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        /* Casillas de opciones */
+        .opciones-box {
+            display: none;
+            margin-top: 6px;
+        }
+
+        .btn-inactivar {
+            background-color: #ffc107;
+            color: #212529;
+            font-weight: bold;
+        }
+
+        .btn-activar {
+            background-color: #198754;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-eliminar {
+            background-color: #dc3545;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <center>
-        <h3>List all</h3>
-    </center>
+    <h3>List all Users</h3>
 
-    <table border="1" align="center">
+    <table class="table theme-primary">
 
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Photo</th>
-            <th>Actions</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Photo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-        <?php
-        while ($row = pg_fetch_assoc($res)) {
-        ?>
+        <tbody>
 
-        <tr>
+            <?php
+            while ($row = pg_fetch_assoc($res)) {
+            ?>
 
-            <td><?php echo htmlspecialchars($row['firstname']); ?></td>
+            <tr>
 
-            <td><?php echo htmlspecialchars($row['lastname']); ?></td>
+                <!-- Firstname -->
+                <td><?php echo htmlspecialchars($row['firstname']); ?></td>
 
-            <td><?php echo htmlspecialchars($row['mobile_phone']); ?></td>
+                <!-- Lastname -->
+                <td><?php echo htmlspecialchars($row['lastname']); ?></td>
 
-            <td><?php echo htmlspecialchars($row['email']); ?></td>
+                <!-- Mobile -->
+                <td><?php echo htmlspecialchars($row['mobile_phone']); ?></td>
 
-            <td><?php echo htmlspecialchars($row['users_status']); ?></td>
+                <!-- Email -->
+                <td><?php echo htmlspecialchars($row['email']); ?></td>
 
-            <!-- Foto del usuario -->
-            <td align="center">
+                <!-- Status -->
+                <td><?php echo htmlspecialchars($row['users_status']); ?></td>
 
-                <?php
-                $foto = !empty($row['photo_url'])
-                    ? $row['photo_url']
-                    : 'photos/user_default.png';
+                <!-- Photo -->
+                <td align="center">
 
-                // Si la base de datos guarda photo/user_default.png
-                // se utiliza la carpeta local photos.
-                if (strpos($foto, 'photo/') === 0) {
-                    $foto = 'photos/' . basename($foto);
-                }
-                ?>
+                    <?php
+                    $foto = !empty($row['photo_url'])
+                        ? $row['photo_url']
+                        : 'photos/user_default.png';
 
-                <img
-                    src="<?php echo htmlspecialchars($foto); ?>"
-                    width="50"
-                    height="50"
-                    style="object-fit:cover; border-radius:50%;"
-                    alt="Foto del usuario"
-                >
+                    if (strpos($foto, 'photo/') === 0) {
+                        $foto = 'photos/' . basename($foto);
+                    }
+                    ?>
 
-            </td>
+                    <img
+                        src="<?php echo htmlspecialchars($foto); ?>"
+                        width="50"
+                        height="50"
+                        style="object-fit:cover; border-radius:50%;"
+                        alt="Foto del usuario"
+                    >
 
-            <td>
+                </td>
 
-                <!-- Botón Ver -->
-                <a href="view_user.php?id=<?php echo urlencode($row['id']); ?>">
-                    <button type="button">
-                        <img src="icons/lupa.png" width="15">
-                        Ver
-                    </button>
-                </a>
+                <!-- Actions -->
+                <td>
 
-                <!-- Botón Editar -->
-                <a href="edit_user.php?id=<?php echo urlencode($row['id']); ?>">
-                    <button type="button">
-                        <img src="icons/lapiz.png" width="15">
-                        Editar
-                    </button>
-                </a>
+                    <!-- View -->
+                    <a href="view_user.php?id=<?php echo urlencode($row['id']); ?>">
+                        <button type="button" title="Ver usuario">
+                            <img src="icons/lupa.png" width="15" alt="Ver">
+                        </button>
+                    </a>
 
-                <!-- Botón Eliminar -->
-                <form action="delete_user.php" method="POST"
-                      style="display:inline;"
-                      onsubmit="return confirm('¿Deseas eliminar este usuario?');">
+                    <!-- Edit -->
+                    <a href="edit_user.php?id=<?php echo urlencode($row['id']); ?>">
+                        <button type="button" title="Editar usuario">
+                            <img src="icons/lapiz.png" width="15" alt="Editar">
+                        </button>
+                    </a>
 
-                    <input type="hidden" name="id"
-                           value="<?php echo htmlspecialchars($row['id']); ?>">
-
-                    <button type="submit">
-                        <img src="icons/basura.png" width="15">
-                        Eliminar
+                    <!-- Botón que despliega las opciones -->
+                    <button type="button" title="Opciones"
+                            onclick="mostrarOpciones('<?php echo htmlspecialchars($row['id']); ?>')">
+                        <img src="icons/bote.png" width="20" height="20" alt="Opciones">
                     </button>
 
-                </form>
+                    <!-- Casillas de activar/inactivar y eliminar -->
+                    <div id="opciones-<?php echo htmlspecialchars($row['id']); ?>" class="opciones-box">
 
-            </td>
+                        <form action="delete_users.php" method="POST" style="display:inline;">
 
-        </tr>
+                            <input type="hidden" name="user_id"
+                                   value="<?php echo htmlspecialchars($row['id']); ?>">
 
-        <?php
-        }
-        ?>
+                            <?php if ($row['users_status'] === 'Active') { ?>
+
+                                <button type="submit" name="accion" value="inactivar"
+                                        class="btn-inactivar"
+                                        onclick="return confirm('¿Inactivar este usuario?');">
+                                    Inactivar
+                                </button>
+
+                            <?php } else { ?>
+
+                                <button type="submit" name="accion" value="activar"
+                                        class="btn-activar"
+                                        onclick="return confirm('¿Activar nuevamente este usuario?');">
+                                    Activar
+                                </button>
+
+                            <?php } ?>
+
+                            <button type="submit" name="accion" value="eliminar"
+                                    class="btn-eliminar"
+                                    onclick="return confirm('¿Eliminar definitivamente este usuario?');">
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <?php
+            }
+            ?>
+
+        </tbody>
 
     </table>
 
+    <script>
+        function mostrarOpciones(id) {
+            var caja = document.getElementById('opciones-' + id);
+
+            if (caja.style.display === 'block') {
+                caja.style.display = 'none';
+            } else {
+                caja.style.display = 'block';
+            }
+        }
+    </script>
+
 </body>
 </html>
-```
